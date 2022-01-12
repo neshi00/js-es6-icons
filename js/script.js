@@ -125,3 +125,20 @@ iconList.forEach((element) => {
   <p>${element.name}</p></div>
   `;
 });
+
+const animalsfilter = iconList.filter(function (icon) {
+  const animalstype = icon[0].type.toLowerCase();
+  return animalstype === "animal";
+});
+
+const vegetablesfilter = iconList.filter(function (icon) {
+  const vegetablestype = icon[0].type.toLowerCase();
+  return vegetablestype === "vegetable";
+});
+
+const usersfilter = iconList.filter(function (icon) {
+  const userstype = icon[0].type.toLowerCase();
+  return userstype === "user";
+});
+
+console.log(animalsfilter);
