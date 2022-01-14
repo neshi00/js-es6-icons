@@ -115,30 +115,29 @@ const iconList = [
 
 // creo aggancio con html
 const hookHtml = document.querySelector(".container");
+const selectElement = document.getElementById("select-filter");
 
-// per ogni oggetto dell'array iconList stampo il seguente codice
-// con i valori che vanno a formare la struttura delle icone di fontawesome
-iconList.forEach((element) => {
-  hookHtml.innerHTML += `
-  <div class="box">
-  <i class="${element.family} ${element.prefix}${element.name} ${element.color}"></i>
-  <p>${element.name}</p></div>
-  `;
+// funzione che crea le icone con i valori forniti dall'array e secondo la struttura di fontawesome
+function createIcon(icon) {
+  return `
+    <div class="box">
+    <i class="${icon.family} ${icon.prefix}${icon.name} ${icon.color}"></i>
+    <p>${icon.name}</p></div>`;
+}
+
+// stampa per ogni elemento le varie icone create dalla funzione precedente
+function showIcons(containerHtml, element) {
+  containerHtml.innerHTML = "";
+  element.forEach((icon) => {
+    containerHtml.innerHTML += createIcon(icon);
+  });
+}
+showIcons(hookHtml, iconList);
+
+selectElement.addEventListener("change", function () {
+  const filteredIcon = iconList.filter((icon) => {
+    return this.value === "all" || icon.type === this.value;
+  });
+
+  showIcons(hookHtml, filteredIcon);
 });
-
-const animalsfilter = iconList.filter(function (icon) {
-  const animalstype = icon[0].type.toLowerCase();
-  return animalstype === "animal";
-});
-
-const vegetablesfilter = iconList.filter(function (icon) {
-  const vegetablestype = icon[0].type.toLowerCase();
-  return vegetablestype === "vegetable";
-});
-
-const usersfilter = iconList.filter(function (icon) {
-  const userstype = icon[0].type.toLowerCase();
-  return userstype === "user";
-});
-
-console.log(animalsfilter);
